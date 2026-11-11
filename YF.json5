@@ -3,7 +3,7 @@
 {
   "id": 9527,
   "name": "我的规则",
-  "version": 1,
+  "version": 2,
   "author": "YF",
   "categories": [],
   "globalGroups": [],
@@ -24,6 +24,62 @@
               // 限定界面，防止在别的页面误点；弹窗换 Activity 时删掉这行即可
               "activityIds": "com.ss.android.ugc.aweme.main.MainActivity",
               "matches": "[text=\"暂不开启\"][clickable=true]",
+              "action": "clickNode"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "com.ct.client",
+      "name": "中国电信",
+      "groups": [
+        {
+          "key": 0,
+          "name": "关闭口令红包浮层",
+          "desc": "先勾上「7天内不再提示」，再点右上角关闭",
+          "actionMaximum": 2,
+          "resetMatch": "app",
+          "rules": [
+            {
+              "key": 0,
+              // 只在未勾选时点，避免把已经勾上的又取消掉
+              "activityIds": "com.ct.client.activity.MainActivity",
+              "matches": "[vid=\"cbNoMore\"][checked=false]",
+              "action": "clickNode"
+            },
+            {
+              "key": 1,
+              "activityIds": "com.ct.client.activity.MainActivity",
+              "matches": "[vid=\"close\"][clickable=true]",
+              "action": "clickNode"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "com.greenpoint.android.mc10086.activity",
+      "name": "中国移动",
+      "groups": [
+        {
+          "key": 0,
+          "name": "关闭爱看签到浮层",
+          "desc": "先勾上「不再提醒」，再点右下角关闭",
+          "actionMaximum": 2,
+          "resetMatch": "app",
+          "rules": [
+            {
+              "key": 0,
+              // 勾选框是外层容器，ImageView 本身不可点，所以点容器
+              "activityIds": "com.mc10086.cmcc.view.tabs.AppTabFragment",
+              "matches": "[vid=\"layout_default_select\"][clickable=true]",
+              "action": "clickNode"
+            },
+            {
+              "key": 1,
+              "activityIds": "com.mc10086.cmcc.view.tabs.AppTabFragment",
+              "matches": "[vid=\"close_btn\"][clickable=true]",
               "action": "clickNode"
             }
           ]
