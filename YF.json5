@@ -3,7 +3,7 @@
 {
   "id": 9527,
   "name": "我的规则",
-  "version": 4,
+  "version": 6,
   "author": "YF",
   "categories": [],
   "globalGroups": [],
@@ -21,8 +21,7 @@
           "rules": [
             {
               "key": 0,
-              // 限定界面，防止在别的页面误点；弹窗换 Activity 时删掉这行即可
-              "activityIds": "com.ss.android.ugc.aweme.main.MainActivity",
+              // 通知弹窗可能在多个页面弹出，不限 Activity；[text="暂不开启"] 文字独特，不会误点别的弹窗
               "matches": "[text=\"暂不开启\"][clickable=true]",
               "action": "clickNode"
             }
@@ -65,9 +64,8 @@
           "rules": [
             {
               "key": 0,
-              // 限定界面，防止在别的页面误点；弹窗换 Activity 时删掉这行即可
-              "activityIds": "com.ct.client.activity.MainActivity",
-              "matches": "[text=\"暂不\"][clickable=true]",
+              // 这个推送通知弹窗会在多个页面弹出，所以不限 Activity；用标题「开启推送通知」锚定，只点这个弹窗里的「暂不」，避免误点别的弹窗
+              "matches": "TextView[text^=\"开启推送通知\"] < LinearLayout > LinearLayout > TextView[text=\"暂不\"][clickable=true]",
               "action": "clickNode"
             }
           ]
@@ -115,8 +113,7 @@
           "rules": [
             {
               "key": 0,
-              // 限定界面，防止在别的页面误点；弹窗换 Activity 时删掉这行即可
-              "activityIds": "com.jingdong.app.mall.MainFrameActivity",
+              // 通知弹窗可能在多个页面弹出，不限 Activity；matches 已用标题「开启消息通知」锚定，删掉 activityIds 后全页面生效且不会误点
               // 关闭按钮(desc=关闭)是内容框的兄弟节点：从标题文字上溯两层容器再下钻到关闭按钮
               // 用 * 抗类名重构；别用 vid=be8，那是混淆 id，会随版本变
               "matches": "TextView[text^=\"开启消息通知\"] < * < * > ImageView[desc=\"关闭\"]",
