@@ -3,7 +3,7 @@
 {
   "id": 9527,
   "name": "我的规则",
-  "version": 3,
+  "version": 4,
   "author": "YF",
   "categories": [],
   "globalGroups": [],
@@ -52,6 +52,22 @@
               "key": 1,
               "activityIds": "com.ct.client.activity.MainActivity",
               "matches": "[vid=\"close\"][clickable=true]",
+              "action": "clickNode"
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "name": "关闭推送通知引导",
+          "desc": "点掉「开启推送通知」弹窗里的「暂不」，跳过推送通知请求",
+          "actionMaximum": 1,
+          "resetMatch": "app",
+          "rules": [
+            {
+              "key": 0,
+              // 限定界面，防止在别的页面误点；弹窗换 Activity 时删掉这行即可
+              "activityIds": "com.ct.client.activity.MainActivity",
+              "matches": "[text=\"暂不\"][clickable=true]",
               "action": "clickNode"
             }
           ]
