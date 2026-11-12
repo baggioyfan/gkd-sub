@@ -3,7 +3,7 @@
 {
   "id": 9527,
   "name": "我的规则",
-  "version": 2,
+  "version": 3,
   "author": "YF",
   "categories": [],
   "globalGroups": [],
@@ -80,6 +80,30 @@
               "key": 1,
               "activityIds": "com.mc10086.cmcc.view.tabs.AppTabFragment",
               "matches": "[vid=\"close_btn\"][clickable=true]",
+              "action": "clickNode"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "com.jingdong.app.mall",
+      "name": "京东",
+      "groups": [
+        {
+          "key": 0,
+          "name": "关闭通知权限引导",
+          "desc": "点掉「开启消息通知」弹窗里的「关闭」，跳过通知权限请求",
+          "actionMaximum": 1,
+          "resetMatch": "app",
+          "rules": [
+            {
+              "key": 0,
+              // 限定界面，防止在别的页面误点；弹窗换 Activity 时删掉这行即可
+              "activityIds": "com.jingdong.app.mall.MainFrameActivity",
+              // 关闭按钮(desc=关闭)是内容框的兄弟节点：从标题文字上溯两层容器再下钻到关闭按钮
+              // 用 * 抗类名重构；别用 vid=be8，那是混淆 id，会随版本变
+              "matches": "TextView[text^=\"开启消息通知\"] < * < * > ImageView[desc=\"关闭\"]",
               "action": "clickNode"
             }
           ]
