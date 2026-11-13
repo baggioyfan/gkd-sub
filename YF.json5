@@ -3,7 +3,7 @@
 {
   "id": 9527,
   "name": "我的规则",
-  "version": 6,
+  "version": 7,
   "author": "YF",
   "categories": [],
   "globalGroups": [],
@@ -117,6 +117,35 @@
               // 关闭按钮(desc=关闭)是内容框的兄弟节点：从标题文字上溯两层容器再下钻到关闭按钮
               // 用 * 抗类名重构；别用 vid=be8，那是混淆 id，会随版本变
               "matches": "TextView[text^=\"开启消息通知\"] < * < * > ImageView[desc=\"关闭\"]",
+              "action": "clickNode"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "com.zcshou.gogogo",
+      "name": "影梭",
+      "groups": [
+        {
+          "key": 0,
+          "name": "自动进入应用",
+          "desc": "启动欢迎页：协议没勾先勾上，再点「进入应用」，跳过启动页",
+          "actionMaximum": 2,
+          "resetMatch": "app",
+          "rules": [
+            {
+              "key": 0,
+              // 只在未勾选时点；已勾选时这条不匹配（快照实测命中 0），不会把勾去掉
+              "activityIds": "com.zcshou.gogogo.WelcomeActivity",
+              "matches": "[vid=\"check_agreement\"][checked=false]",
+              "action": "clickNode"
+            },
+            {
+              "key": 1,
+              // 用 vid 锚定按钮，不认「进入应用」文案（文案改版概率更高）
+              "activityIds": "com.zcshou.gogogo.WelcomeActivity",
+              "matches": "[vid=\"startButton\"][clickable=true]",
               "action": "clickNode"
             }
           ]
