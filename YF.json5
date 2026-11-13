@@ -3,7 +3,7 @@
 {
   "id": 9527,
   "name": "我的规则",
-  "version": 9,
+  "version": 10,
   "author": "YF",
   "categories": [],
   "globalGroups": [
@@ -16,8 +16,9 @@
       "rules": [
         {
           "key": 0,
-          // 暂不开启 文字独特，仅出现在通知/权限引导弹窗；文字在 TextView 子节点，故锚定其可点击父容器
-          "matches": "TextView[text=\"暂不开启\"] < [clickable=true]",
+          // 暂不开启 文字独特，仅出现在通知/权限引导弹窗。兼容两类布局：
+          //   红果类——文字在 TextView 子节点、可点是父容器，用父锚定；抖音类——文字节点本身可点，用本节点匹配
+          "matches": "[text=\"暂不开启\"] < [clickable=true], [text=\"暂不开启\"][clickable=true]",
           "action": "clickNode"
         }
       ]
