@@ -3,10 +3,26 @@
 {
   "id": 9527,
   "name": "我的规则",
-  "version": 7,
+  "version": 9,
   "author": "YF",
   "categories": [],
-  "globalGroups": [],
+  "globalGroups": [
+    {
+      "key": 0,
+      "name": "关闭通知权限引导（通用）",
+      "desc": "通用关闭「开启消息通知」类弹窗的「暂不开启」按钮，对所有 app 生效；需在 GKD 里启用全局规则后才生效",
+      "actionMaximum": 1,
+      "resetMatch": "app",
+      "rules": [
+        {
+          "key": 0,
+          // 暂不开启 文字独特，仅出现在通知/权限引导弹窗；文字在 TextView 子节点，故锚定其可点击父容器
+          "matches": "TextView[text=\"暂不开启\"] < [clickable=true]",
+          "action": "clickNode"
+        }
+      ]
+    }
+  ],
   "apps": [
     {
       "id": "com.ss.android.ugc.aweme.lite",
@@ -124,6 +140,28 @@
       ]
     },
     {
+      "id": "com.phoenix.read",
+      "name": "红果免费短剧",
+      "groups": [
+        {
+          "key": 0,
+          "name": "关闭通知权限引导",
+          "desc": "点掉「开启消息通知」弹窗里的「暂不开启」，跳过通知权限请求",
+          "actionMaximum": 1,
+          "resetMatch": "app",
+          "rules": [
+            {
+              "key": 0,
+              // 通知权限引导弹窗，不限 Activity；点「暂不开启」跳过。「暂不开启」文字在 TextView 子节点，故锚定其可点击父容器
+              "matches": "TextView[text=\"暂不开启\"] < [clickable=true]",
+              "action": "clickNode"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      // 从线上 gkd.325500.xyz 同步合并（本地之前分叉缺失）
       "id": "com.zcshou.gogogo",
       "name": "影梭",
       "groups": [
@@ -136,14 +174,12 @@
           "rules": [
             {
               "key": 0,
-              // 只在未勾选时点；已勾选时这条不匹配（快照实测命中 0），不会把勾去掉
               "activityIds": "com.zcshou.gogogo.WelcomeActivity",
               "matches": "[vid=\"check_agreement\"][checked=false]",
               "action": "clickNode"
             },
             {
               "key": 1,
-              // 用 vid 锚定按钮，不认「进入应用」文案（文案改版概率更高）
               "activityIds": "com.zcshou.gogogo.WelcomeActivity",
               "matches": "[vid=\"startButton\"][clickable=true]",
               "action": "clickNode"
