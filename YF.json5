@@ -3,7 +3,7 @@
 {
   "id": 9527,
   "name": "我的规则",
-  "version": 12,
+  "version": 13,
   "author": "YF",
   "categories": [],
   "globalGroups": [
@@ -207,6 +207,29 @@
               // 故在 app 内单独加。标题与「下次再说」是同一容器的兄弟节点，用 +n 前置兄弟关系锚定标题，
               // 防止美团其他弹窗里的「下次再说」被误点
               "matches": "[text^=\"美团 App 想给你发送通知\"] +n [text=\"下次再说\"][clickable=true]",
+              "action": "clickNode"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      // 快照来源：192.168.31.10（id 1795326789003，v39.1.2）
+      "id": "com.ylmf.androidclient",
+      "name": "115生活",
+      "groups": [
+        {
+          "key": 0,
+          "name": "关闭通知权限引导",
+          "desc": "点掉「115生活想向你发送通知」弹窗里的「取消」，跳过通知权限请求",
+          "actionMaximum": 1,
+          "resetMatch": "app",
+          "rules": [
+            {
+              "key": 0,
+              // 通知弹窗按约定不限 Activity。「取消」二字太通用，绝不能裸匹配，
+              // 用标题锚定：标题是按钮容器的任意前置兄弟(+n)，取消是按钮容器的直接子(<)
+              "matches": "[text^=\"115生活想向你发送通知\"] +n LinearLayout < [text=\"取消\"][clickable=true]",
               "action": "clickNode"
             }
           ]
