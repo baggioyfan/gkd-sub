@@ -3,7 +3,7 @@
 {
   "id": 9527,
   "name": "我的规则",
-  "version": 13,
+  "version": 14,
   "author": "YF",
   "categories": [],
   "globalGroups": [
@@ -227,9 +227,10 @@
           "rules": [
             {
               "key": 0,
-              // 通知弹窗按约定不限 Activity。「取消」二字太通用，绝不能裸匹配，
-              // 用标题锚定：标题是按钮容器的任意前置兄弟(+n)，取消是按钮容器的直接子(<)
-              "matches": "[text^=\"115生活想向你发送通知\"] +n LinearLayout < [text=\"取消\"][clickable=true]",
+              // 通知弹窗按约定不限 Activity。「取消」二字太通用，绝不能裸匹配，用标题锚定。
+              // 注意方向：A>B 是「A 是 B 的祖先」，A<B 是「A 是 B 的直接子」。标题是按钮容器(+n 前置兄弟)，
+              // 取消在按钮容器里，故链为 标题 +n 按钮 > 取消（已用 @gkd-kit/selector 在快照上实测命中）
+              "matches": "[text^=\"115生活想向你发送通知\"] +n LinearLayout > [text=\"取消\"][clickable=true]",
               "action": "clickNode"
             }
           ]
