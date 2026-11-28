@@ -3,7 +3,7 @@
 {
   "id": 9527,
   "name": "我的规则",
-  "version": 14,
+  "version": 15,
   "author": "YF",
   "categories": [],
   "globalGroups": [
@@ -231,6 +231,30 @@
               // 注意方向：A>B 是「A 是 B 的祖先」，A<B 是「A 是 B 的直接子」。标题是按钮容器(+n 前置兄弟)，
               // 取消在按钮容器里，故链为 标题 +n 按钮 > 取消（已用 @gkd-kit/selector 在快照上实测命中）
               "matches": "[text^=\"115生活想向你发送通知\"] +n LinearLayout > [text=\"取消\"][clickable=true]",
+              "action": "clickNode"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      // 快照来源：平板 192.168.31.225（id 1795859764686，v9.04.90.32548，横屏）
+      "id": "com.tencent.qqlive",
+      "name": "腾讯视频",
+      "groups": [
+        {
+          "key": 0,
+          "name": "关闭推送通知引导",
+          "desc": "点掉「开启通知，不错过精彩内容」弹窗右上角的关闭 X 跳过（「确认」按钮是去开启推送，不能点）",
+          "actionMaximum": 1,
+          "resetMatch": "app",
+          "rules": [
+            {
+              "key": 0,
+              // 通知弹窗按约定不限 Activity。vid 全是混淆 id(arg) 不能用；
+              // 弹窗里唯一跳过入口是右上角关闭 X：@目标=可点击 ImageView，是标题所在 LinearLayout 的前置兄弟(+n)。
+              // 已用 @gkd-kit/selector 在快照上实测：唯一命中该 X (1430,323)-(1466,359)
+              "matches": "@ImageView[clickable=true] +n LinearLayout > [text^=\"开启通知，不错过精彩内容\"]",
               "action": "clickNode"
             }
           ]
